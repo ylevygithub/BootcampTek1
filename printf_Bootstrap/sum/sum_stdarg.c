@@ -1,0 +1,43 @@
+/*
+** EPITECH PROJECT, 2018
+** sum_stdarg
+** File description:
+** sum of arg
+*/
+
+#include "include/my.h"
+#include <stdio.h>
+
+int sum_stdarg(int i, int nb, ...)
+{
+    va_list valist;
+    int sum = 0;
+    int index = 0;
+
+    va_start(valist, nb);
+    if (i == 0) {
+        while (index < nb) {
+            sum = sum + va_arg(valist, int);
+            index++;
+        }
+    }
+    else if (i == 1) {
+        while (index < nb) {
+            sum = sum + my_strlen(va_arg(valist, char *));
+            index++;
+        }
+    }
+    va_end(valist);
+    return (sum);
+}
+
+int main()
+{
+    int sum;
+
+    sum = sum_stdarg(0, 3, 1, 2, 3);
+    printf("for (0, 3, 1, 2, 3) => sum = %i\n\n", sum);
+    sum = sum_stdarg(1, 4, "hello", "a", "toto", "plop");
+    printf("for (1, 4, hello, a, toto, plop) => sum = %i\n\n", sum);
+    return 0;
+}
